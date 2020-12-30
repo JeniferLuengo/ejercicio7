@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".TitleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -47,11 +46,11 @@
         android:layout_marginBottom="32dp"
         android:backgroundTint="#c0c0c0"
         android:text="Comenzar"
+        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="#000000"
-        app:rippleColor="#FFFFFF"/>
+        app:rippleColor="#FFFFFF" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
