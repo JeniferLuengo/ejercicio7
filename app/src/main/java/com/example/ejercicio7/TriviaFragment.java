@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +44,15 @@ public class TriviaFragment extends Fragment {
         if (getArguments() != null) {
             name = getArguments().getString(ARG_PARAM1);
         }
+        mBinding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }
     }
+
+}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,33 +68,47 @@ public class TriviaFragment extends Fragment {
         mBinding.tvSaludo.setText(saludo);
 
         mBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int index = mBinding.radioGroup
-                        .indexOfChild(mBinding.radioGroup.findViewById(checkedId));
-                if (index == 2){
-                    choice = true;
-                } else {
-                    choice = false;
-                }
-            }
-        });
-
-        mBinding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (choice){
-                    //TODO añadir el metodo que inicia el fragmento ganador y pasa el nombre
-                } else {
-                    //Todo añadir el metodo que inicia el fragmento perdedor y pasa el nombre
-                }
-            }
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        int index = mBinding.radioGroup.indexOfChild(mBinding.radioGroup.findViewById(i));
+                        if (index == 2){
+                            choice = true;
+                            WinnerFragment(name);
+                        } else {
+                            choice = false;
+                            LooserFragment(name);
+                        }
+                    }
         });
     }
 
     //TODO  crear el metodo para ir al fragmento ganador
-
+    private void WinnerFragment(String name) {
+        //Instanciar el fragmento que vamos añadir
+        WinnerFragment winnerFragment = WinnerFragment.newInstance(" name");
+        //Instanciar el fragment Manager
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        //Instanciar la transaccion
+        FragmentTransaction transaction = fragmentManager.beginTransaction()
+                .replace(R.id.fragment, winnerFragment, TriviaFragment.class.getSimpleName())
+                // añadir el fragmento a la pila
+                .addToBackStack(null);
+        //Activiar la transacción
+        transaction.commit();
+    }
 
     //Todo crear el metodo para ir al fragment perdedor.
-
+        private void LooserFragment(String name){
+            //Instanciar el fragmento que vamos añadir
+            LooserFragment looserFragment = com.example.ejercicio7.LooserFragment.newInstance("name");
+            //Instanciar el fragment Manager
+            FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();
+            //Instanciar la transaccion
+            FragmentTransaction transaction1 = supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment, looserFragment, TriviaFragment.class.getSimpleName())
+                    // añadir el fragmento a la pila
+                    .addToBackStack(null);
+            //Activiar la transacción
+            transaction1.commit();
+        }
 }

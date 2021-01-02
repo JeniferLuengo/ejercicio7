@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link WinnerFragment#newInstance} factory method to
+ * Use the {@link WinnerFragment#WinnerFragment} factory method to
  * create an instance of this fragment.
  */
 public class WinnerFragment extends Fragment {
@@ -44,6 +44,9 @@ public class WinnerFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+    public static WinnerFragment newInstance(String name) {
+        return null;
     }
 
     @Override
