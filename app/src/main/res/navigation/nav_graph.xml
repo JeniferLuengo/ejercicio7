@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/triviaFragment">
+
+    <fragment
+        android:id="@+id/triviaFragment"
+        android:name="com.example.ejercicio7.TriviaFragment"
+        android:label="fragment_trivia"
+        tools:layout="@layout/fragment_trivia" >
+        <action
+            android:id="@+id/action_triviaFragment_to_winnerFragment"
+            app:destination="@id/winnerFragment" />
+        <action
+            android:id="@+id/action_triviaFragment_to_looserFragment"
+            app:destination="@id/looserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/winnerFragment"
+        android:name="com.example.ejercicio7.WinnerFragment"
+        android:label="WinnerFragment" >
+        <action
+            android:id="@+id/action_winnerFragment_to_triviaFragment"
+            app:destination="@id/triviaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/looserFragment"
+        android:name="com.example.ejercicio7.LooserFragment"
+        android:label="fragment_looser"
+        tools:layout="@layout/fragment_looser" >
+        <action
+            android:id="@+id/action_looserFragment_to_triviaFragment"
+            app:destination="@id/triviaFragment" />
+    </fragment>
+</navigation>
