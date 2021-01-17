@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
+import androidx.navigation.Navigation;
 
+import android.renderscript.ScriptGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,70 +21,51 @@ import com.example.ejercicio7.databinding.FragmentTriviaBinding;
 
 public class TriviaFragment extends Fragment {
 
-
-    private static final String ARG_PARAM1 = "param1";
-    private String name;
-
-    private FragmentTriviaBinding mBinding;
-    private boolean choice;
+private FragmentTriviaBinding mbinding;
 
     public TriviaFragment() {
         // Required empty public constructor
     }
 
-    public static TriviaFragment newInstance(String param1) {
-        TriviaFragment fragment = new TriviaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            name = getArguments().getString(ARG_PARAM1);
-        }
-        mBinding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        }
     }
-
-}
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = FragmentTriviaBinding.inflate(inflater, container, false);
-        return mBinding.getRoot();
+        mbinding = FragmentTriviaBinding.inflate(inflater, container, false);
+        return mbinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String saludo = getString(R.string.saludo, name);
-        mBinding.tvSaludo.setText(saludo);
+        String saludo = getString(R.string.saludo);
+        mbinding.tvSaludo.setText(saludo);
 
-        mBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mbinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                        int index = mBinding.radioGroup.indexOfChild(mBinding.radioGroup.findViewById(i));
+                        int index = mbinding.radioGroup.indexOfChild(mbinding.radioGroup.findViewById(i));
+                        boolean choice;
                         if (index == 2){
                             choice = true;
-                            WinnerFragment(name);
+                            Navigation.findNavController(mbinding.getRoot()).navigate(R.id.action_triviaFragment_to_winnerFragment);
                         } else {
                             choice = false;
-                            LooserFragment(name);
+                            Navigation.findNavController(mbinding.getRoot()).navigate(R.id.action_triviaFragment_to_looserFragment);
                         }
                     }
         });
     }
+}
 
-    //TODO  crear el metodo para ir al fragmento ganador
+
+   /* //TODO  crear el metodo para ir al fragmento ganador
     private void WinnerFragment(String name) {
         //Instanciar el fragmento que vamos añadir
         WinnerFragment winnerFragment = WinnerFragment.newInstance(" name");
@@ -111,4 +94,4 @@ public class TriviaFragment extends Fragment {
             //Activiar la transacción
             transaction1.commit();
         }
-}
+}*/
